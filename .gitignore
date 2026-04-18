@@ -9,4 +9,5 @@ node_modules/
 allure-report
 allure-results
 auth-token.json
+.DS_Store
 

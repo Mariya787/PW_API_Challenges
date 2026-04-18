@@ -32,13 +32,20 @@ export default defineConfig({
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on-first-retry',
     },
+    globalSetup: './tests/global.setup.js',
 
     /* Configure projects for major browsers */
     projects: [
         {
+            name: 'setup',
+            testMatch: 'global.setup.js',
+        },
+        {
             name: 'chromium',
             use: { ...devices['Desktop Chrome'] },
+            dependencies: ['setup'],
         },
+
         /*
     {
       name: 'firefox',
