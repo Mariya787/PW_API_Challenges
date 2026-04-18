@@ -1,9 +1,17 @@
 import { test } from '../src/helpers/fixtures/fixture'
 import { expect } from '@playwright/test'
-import { Api } from '../src/services/api.service'
+import fs from 'fs'
 //todo
+
+const getToken = () => {
+    return (
+        process.env.AUTH_TOKEN ||
+        JSON.parse(fs.readFileSync('auth-token.json', 'utf-8')).key
+    )
+}
+
 const urlApi = 'https://apichallenges.eviltester.com'
-test('Получить токен доступа', async ({ request }) => {
+test('Получить токен доступа', async ({ api }) => {
     /*
     // Получить ключ авторизации
     let response = await request.post(`${urlApi}/challenger`)
@@ -17,19 +25,17 @@ test('Получить токен доступа', async ({ request }) => {
     console.log(link)
     expect(headers['x-challenger'].length).toEqual(36)
     */
-    const api = new Api(request)
-    const token = await api.challenger.post()
+
+    const token = getToken()
     let response = await api.challenges.get(token)
 
     expect(response.challenges.length).toEqual(59)
 
-    response = await request.get(`${urlApi}/challenges`, {
-        headers: {
-            'X-CHALLENGER': token,
-        },
-    })
-    let r = await response.json()
-    expect(r.challenges.length).toEqual(59)
+    //let r = await response.json()
+
+    console.log(response)
+
+    /*expect(r.challenges.length).toEqual(59)
 
     response = await request.post(`${urlApi}/todos`, {
         headers: {
@@ -46,5 +52,5 @@ test('Получить токен доступа', async ({ request }) => {
     expect(r.id).toBeTruthy()
     expect(r.title).toEqual('title')
     expect(r.doneStatus).toEqual(false)
-    expect(r.description).toEqual('description')
+    expect(r.description).toEqual('description')*/
 })

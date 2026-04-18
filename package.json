@@ -18,6 +18,8 @@
     "devDependencies": {
         "@playwright/test": "^1.59.1",
         "@types/node": "^25.6.0",
-        "allure-playwright": "^3.7.1"
+        "allure-playwright": "^3.7.1",
+        "fs": "^0.0.1-security",
+        "path": "^0.12.7"
     }
 }
