@@ -1,0 +1,23 @@
+{
+    "name": "pw_api_challenges",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "npx playwright test",
+        "test:ui": "npx playwright test --ui",
+        "allureGenerate": "npx allure generate",
+        "allureOpen": "npx allure open",
+        "biome:check": "biome check --write",
+        "biome:format": "biome format --write",
+        "biome:ci": "biome ci --reporter=github"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@playwright/test": "^1.59.1",
+        "@types/node": "^25.6.0",
+        "allure-playwright": "^3.7.1"
+    }
+}
