@@ -10,10 +10,10 @@ const getToken = () => {
     )
 }
 
-const todoData = new TodoBuilder()
-    .withTitle('TODO')
+const todoData1 = new TodoBuilder()
+    .withTitle('TODO1')
     .withDoneStatus(false)
-    .withDescription('description')
+    .withDescription('description1')
     .build()
 
 test(
@@ -21,12 +21,12 @@ test(
     { tag: ['@post'] },
     async ({ api }) => {
         const token = getToken()
-        let response = await api.todos.post(token, todoData)
+        let response = await api.todos.post(token, todoData1)
 
         expect(response.id).toBeTruthy()
-        expect(response.title).toEqual('TODO')
+        expect(response.title).toEqual('TODO1')
         expect(response.doneStatus).toEqual(false)
-        expect(response.description).toEqual('description')
+        expect(response.description).toEqual('description1')
     },
 )
 
@@ -72,9 +72,15 @@ test(
 )
 
 const todoData2 = new TodoBuilder()
-    .withTitle('TODO')
+    .withTitle('TODO2')
     .withDoneStatus(true)
-    .withDescription('description')
+    .withDescription('description2')
+    .build()
+
+const todoData3 = new TodoBuilder()
+    .withTitle('TODO3')
+    .withDoneStatus(false)
+    .withDescription('description3')
     .build()
 
 test(
@@ -83,7 +89,9 @@ test(
     async ({ api }) => {
         const token = getToken()
         //создаем todo with donestatus = true
-        let todo = await api.todos.post(token, todoData2)
+        let todo2 = await api.todos.post(token, todoData2)
+        //создаем todo with donestatus = false
+        let todo3 = await api.todos.post(token, todoData3)
 
         let response = await api.todos.getTodosWithDoneStatusTrue(token)
         expect(response.todos[0].doneStatus).toBeTruthy()
