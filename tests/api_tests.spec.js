@@ -1,7 +1,10 @@
-import { test, expect } from '@playwright/test'
+import { test } from '../src/helpers/fixtures/fixture'
+import { expect } from '@playwright/test'
+import { Api } from '../src/services/api.service'
 //todo
 const urlApi = 'https://apichallenges.eviltester.com'
 test('Получить токен доступа', async ({ request }) => {
+    /*
     // Получить ключ авторизации
     let response = await request.post(`${urlApi}/challenger`)
     // КОнвертировать хедеры в Json
@@ -13,10 +16,16 @@ test('Получить токен доступа', async ({ request }) => {
 
     console.log(link)
     expect(headers['x-challenger'].length).toEqual(36)
+    */
+    const api = new Api(request)
+    const token = await api.challenger.post()
+    let response = await api.challenges.get(token)
+
+    expect(response.challenges.length).toEqual(59)
 
     response = await request.get(`${urlApi}/challenges`, {
         headers: {
-            'X-CHALLENGER': key,
+            'X-CHALLENGER': token,
         },
     })
     let r = await response.json()
@@ -24,7 +33,7 @@ test('Получить токен доступа', async ({ request }) => {
 
     response = await request.post(`${urlApi}/todos`, {
         headers: {
-            'X-CHALLENGER': key,
+            'X-CHALLENGER': token,
         },
         // унести в билдер
         data: {
