@@ -13,7 +13,7 @@ const getToken = () => {
 test(
     'Получить challenges и проверить что их 59',
     { tag: ['@post'] },
-    async ({ api, request }) => {
+    async ({ api }) => {
         const token = getToken()
         let response = await api.challenges.get(token)
 

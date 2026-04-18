@@ -8,7 +8,7 @@ export class ChallengerService {
         this.request = request
     }
     async post() {
-        return test.step('POST /challenger', async () => {
+        return test.step('Post /challenger', async () => {
             const response = await this.request.post(`${urlApi}/challenger`)
             const headers = response.headers()
             // Вытащить токен из хедера

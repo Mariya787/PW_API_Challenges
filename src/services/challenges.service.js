@@ -8,7 +8,7 @@ export class ChallengesService {
         this.request = request
     }
     async get(token) {
-        return test.step('POST /challenges', async () => {
+        return test.step('Post /challenges', async () => {
             const response = await this.request.get(`${urlApi}/challenges`, {
                 headers: {
                     'X-CHALLENGER': token,
